@@ -6,7 +6,7 @@
 /*   By: mosmont <mosmont@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:29:32 by mosmont           #+#    #+#             */
-/*   Updated: 2024/10/21 18:39:01 by mosmont          ###   ########.fr       */
+/*   Updated: 2024/10/22 23:16:10 by mosmont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,13 @@ size_t	ft_putnbr(int nb)
 	}
 	if (nb < 0)
 	{
-		ft_putchar('-');
+		len += ft_putchar('-');
 		nb = -nb;
 	}
 	if (nb / 10 != 0)
-	{
-		ft_putnbr(nb / 10);
-		len++;
-	}
-	ft_putchar('0' + nb % 10);
-	return (len);
+		len += ft_putnbr(nb / 10);
+	len += ft_putchar('0' + nb % 10);
+	return (len + 1);
 }
 
 size_t	ft_strlen(char *str)

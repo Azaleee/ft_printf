@@ -9,7 +9,7 @@ RED = \\033[0;31m
 BLUE = \\033[0;34m
 RESET = \\033[0m
 
-SRCS = ft_printf.c ft_printf_utils.c ft_printf_utils_2.c
+SRCS = ft_printf.c ft_printf_utils.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -25,13 +25,19 @@ $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo "$(BLUE)Compilation de $<$(RESET)"
 
+test: all $(SRCS)
+	@$(CC) $(SRCS) main.c
+	@echo "$(BLUE)Compilation du main$(RESET)"
+	@echo "$(GREEN)a.out : $(RESET)"
+	@./a.out
+
 clean:
 	@rm -f $(OBJS)
 	@echo "$(YELLOW)Fichiers objets supprimés.$(RESET)"
 
 fclean: clean
-	@rm -f $(NAME)
-	@echo  "$(RED)Bibliothèque $(NAME) et fichiers objets supprimés.$(RESET)"
+	@rm -f $(NAME) a.out
+	@echo  "$(RED)Bibliothèque $(NAME), fichiers objets et a.out supprimés.$(RESET)"
 
 re: fclean all
 

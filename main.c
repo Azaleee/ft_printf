@@ -6,7 +6,7 @@
 /*   By: mosmont <mosmont@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 17:16:56 by mosmont           #+#    #+#             */
-/*   Updated: 2024/10/21 20:05:39 by mosmont          ###   ########.fr       */
+/*   Updated: 2024/10/22 23:32:00 by mosmont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,22 @@
 
 int	main(void)
 {
-	//ft_printf("- %d -", ft_printf("salut%d#%s,    %c%c%c", 0, "-891", 'c', 'c', 'e'));
-	int *test;
-	int a = 10;
+	int	a;
 
-	test = &a;
-	ft_printf("-%d-", ft_printf("%u\n", -1));
+	a = 1;
+	ft_printf(
+		"\n-written char number : %d-",
+		ft_printf(
+			"%d - %c - %s - %p - %i - %u - %x - %X - %%",
+			-42,
+			'4',
+			"42",
+			&a,
+			0x2A,
+			42,
+			-42,
+			42
+			)
+		);
 	return (0);
 }

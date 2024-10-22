@@ -6,31 +6,34 @@
 /*   By: mosmont <mosmont@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:17:05 by mosmont           #+#    #+#             */
-/*   Updated: 2024/10/21 18:35:56 by mosmont          ###   ########.fr       */
+/*   Updated: 2024/10/22 23:26:14 by mosmont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	count_args(char *hook)
+size_t	ft_putunbr(unsigned int nb)
 {
-	int	result;
-	int	i;
+	if (nb / 10)
+		return (ft_putunbr(nb / 10) + ft_putunbr(nb % 10));
+	else
+		return (ft_putchar(nb + '0'));
+}
 
-	i = 0;
-	result = 0;
-	while (hook[i] != '\0')
-	{
-		if (hook[i] == '%')
-			result++;
-		i++;
-	}
-	return (result);
+size_t	ft_puthexa(unsigned int nb, char *hexa)
+{
+	size_t			len;
+
+	len = 0;
+	if (nb > 16 - 1)
+		len += ft_puthexa(nb / 16, hexa);
+	len += ft_putchar(hexa[nb % 16]);
+	return (len);
 }
 
 size_t	check(va_list *args, char hook)
 {
-	if (hook == 'd')
+	if (hook == 'd' || hook == 'i')
 		return (ft_putnbr(va_arg(*args, int)));
 	if (hook == 'c')
 		return (ft_putchar(va_arg(*args, int)));
@@ -40,6 +43,10 @@ size_t	check(va_list *args, char hook)
 		return (ft_putadr(va_arg(*args, void *)));
 	if (hook == 'u')
 		return (ft_putunbr(va_arg(*args, unsigned int)));
+	if (hook == 'x')
+		return (ft_puthexa(va_arg(*args, unsigned int), "0123456789abcdef"));
+	if (hook == 'X')
+		return (ft_puthexa(va_arg(*args, unsigned int), "0123456789ABCDEF"));
 	if (hook == '%')
 		return (write(1, "%", 1));
 	else
