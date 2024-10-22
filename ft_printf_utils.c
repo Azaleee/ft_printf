@@ -6,7 +6,7 @@
 /*   By: mosmont <mosmont@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:29:32 by mosmont           #+#    #+#             */
-/*   Updated: 2024/10/22 23:16:10 by mosmont          ###   ########.fr       */
+/*   Updated: 2024/10/23 00:30:23 by mosmont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ size_t	ft_putchar(char c)
 size_t	ft_putstr(char *str)
 {
 	if (str == NULL)
-		return (write(1, "(null)", 7));
+		return (write(1, "(null)", 6));
 	else
 		return (write(1, str, ft_strlen(str)));
 }
@@ -30,20 +30,22 @@ size_t	ft_putnbr(int nb)
 	size_t	len;
 
 	len = 0;
-	if (nb >= 0 && nb <= 9)
+	if (nb == INT_MAX)
+		len += ft_putstr("2147483647");
+	else if (nb == INT_MIN)
+		len += ft_putstr("-2147483648");
+	else
 	{
-		ft_putchar(nb + '0');
-		return (len);
+		if (nb < 0)
+		{
+			len += ft_putchar('-');
+			nb = -nb;
+		}
+		if (nb / 10 != 0)
+			len += ft_putnbr(nb / 10);
+		len += ft_putchar('0' + nb % 10);
 	}
-	if (nb < 0)
-	{
-		len += ft_putchar('-');
-		nb = -nb;
-	}
-	if (nb / 10 != 0)
-		len += ft_putnbr(nb / 10);
-	len += ft_putchar('0' + nb % 10);
-	return (len + 1);
+	return (len);
 }
 
 size_t	ft_strlen(char *str)
@@ -56,9 +58,9 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-size_t	ft_putadr(void *adr)
+size_t	ft_putadr(void *adr, const char *hexa_tab)
 {
-	char			*hexa_tab;
+	char			remove_z;
 	int				bytes;
 	unsigned long	adress;
 	char			hexa;
@@ -66,17 +68,21 @@ size_t	ft_putadr(void *adr)
 
 	if (adr == NULL)
 		return (write(1, "0x0", 3));
-	hexa_tab = "0123456789abcdef";
 	i = 0;
-	bytes = 32;
+	bytes = 60;
+	remove_z = 1;
 	adress = (unsigned long)adr;
 	write(1, "0x", 2);
 	while (bytes >= 0)
 	{
 		hexa = hexa_tab[(adress >> bytes) & 0xf];
-		write(1, &hexa, 1);
+		if (hexa != '0' || bytes == 0 || remove_z == 0)
+		{
+			write(1, &hexa, 1);
+			remove_z = 0;
+			i++;
+		}
 		bytes -= 4;
-		i++;
 	}
 	return (i + 2);
 }

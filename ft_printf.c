@@ -6,7 +6,7 @@
 /*   By: mosmont <mosmont@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:17:05 by mosmont           #+#    #+#             */
-/*   Updated: 2024/10/22 23:26:14 by mosmont          ###   ########.fr       */
+/*   Updated: 2024/10/23 00:27:18 by mosmont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ size_t	check(va_list *args, char hook)
 	if (hook == 's')
 		return (ft_putstr(va_arg(*args, char *)));
 	if (hook == 'p')
-		return (ft_putadr(va_arg(*args, void *)));
+		return (ft_putadr(va_arg(*args, void *), "0123456789abcdef"));
 	if (hook == 'u')
 		return (ft_putunbr(va_arg(*args, unsigned int)));
 	if (hook == 'x')
@@ -53,7 +53,7 @@ size_t	check(va_list *args, char hook)
 		return (-1);
 }
 
-int	ft_printf(char *hook, ...)
+int	ft_printf(const char *hook, ...)
 {
 	int		i;
 	va_list	args;
