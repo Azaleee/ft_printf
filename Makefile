@@ -1,6 +1,6 @@
 NAME = libftprintf.a
 
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 GREEN = \\033[0;32m
@@ -24,12 +24,6 @@ $(NAME): $(OBJS)
 %.o: %.c $(INCLUDES)
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo "$(BLUE)Compilation de $<$(RESET)"
-
-test: all $(SRCS)
-	@$(CC) $(SRCS) main.c
-	@echo "$(BLUE)Compilation du main$(RESET)"
-	@echo "$(GREEN)a.out : $(RESET)"
-	@./a.out
 
 clean:
 	@rm -f $(OBJS)

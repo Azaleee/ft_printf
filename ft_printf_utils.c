@@ -6,7 +6,7 @@
 /*   By: mosmont <mosmont@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:29:32 by mosmont           #+#    #+#             */
-/*   Updated: 2024/10/23 00:30:23 by mosmont          ###   ########.fr       */
+/*   Updated: 2024/11/07 17:51:13 by mosmont          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ size_t	ft_putadr(void *adr, const char *hexa_tab)
 	size_t			i;
 
 	if (adr == NULL)
-		return (write(1, "0x0", 3));
+		return (write(1, "(nil)", 5));
 	i = 0;
 	bytes = 60;
 	remove_z = 1;
